@@ -15,18 +15,19 @@ indexRouter.post("/signup", validation.signUpForm, async (req, res, next) => {
   const errors = validationResult(req);
   console.log(errors.isEmpty());
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() }); // R1 JSON
   }
   // after validation
   const { username, email, password } = req.body;
+  // check if user or email exists???
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     const user = await db.createUser(username, email, hashedPassword);
-    res.json({ success: true, user });
+    res.json({ success: true, user }); // R2 JSON
     // can implement jwt generation here already and send to client (see at 25:01 https://www.youtube.com/watch?v=Ne0tLHm1juE&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=10 )
   } catch (error) {
-    next(error);
+    next(error); // R3
   }
 });
 
@@ -54,13 +55,13 @@ indexRouter.post("/login", async (req, res) => {
     const payload = { sub: user.id };
 
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "120s", // or "1d"
+      expiresIn: "1h", // or "1d"
     });
 
     res.status(200).json({
       message: "Authentication passed and sent to user browser",
       success: true,
-      user: { userId: user.id, username: user.username },
+      user: { userId: user.id, username: user.username, userRole: user.role },
       token: "Bearer " + token,
       // set expiration to manage authentication on front-end
     });

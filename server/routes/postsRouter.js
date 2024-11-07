@@ -24,6 +24,7 @@ postsRouter.get("/:postId", postsController.getPostById);
 postsRouter.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  auth.checkAdminStatus,
   postsController.createPost
 );
 

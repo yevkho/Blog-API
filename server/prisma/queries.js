@@ -14,6 +14,7 @@ async function getPost(postId) {
     where: {
       id: parseInt(postId),
     },
+    include: { author: true, comments: true },
   });
   return posts;
 }

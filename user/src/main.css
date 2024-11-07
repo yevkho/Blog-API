@@ -1,0 +1,41 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  --green-color: #059669;
+  --grey-color: #e2e8f071;
+  --gold-color: #f7ad2d;
+  --boxshadow: 2px 2px 4px 1px rgb(0 0 0 / 10%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* a {
+  text-decoration: none;
+  color: inherit;
+} */
+
+#root {
+  /* min-height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 3.5rem 1fr; */
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  padding: 10px 15px;
+}
+
+main {
+  padding: 10px 15px;
+}
+
+.post {
+  margin-bottom: 20px;
+}

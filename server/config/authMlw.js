@@ -1,13 +1,12 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-// 1 MANUAL
+// 1 MANUAL USER AUTHENTICATION
 // extract token from the request & verify it (can use passport-jwt)
 function checkJWT(req, res, next) {
-  console.log(req.headers);
+  console.log(`incoming request header (auth.checkJWT): ${req.headers}`);
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(token);
 
   // if no token passed
   if (token == undefined) {
@@ -15,6 +14,7 @@ function checkJWT(req, res, next) {
   }
   // if token passed - verify it (used by passport-jwt underneath the hood)
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    console.log(`decoded payload: ${payload}`);
     // if success than (1) the data has not been tempered with, and (2) the user is valid
     if (err)
       return res.status(403).json({
@@ -28,4 +28,18 @@ function checkJWT(req, res, next) {
   });
 }
 
-module.exports = { checkJWT };
+// 2 MANUAL ADMIN AUTHENTICATION
+
+function checkAdminStatus(req, res, next) {
+  const user = req.user;
+  if (user && user.role === "ADMIN") {
+    console.log("User is admin");
+    return next();
+  } else {
+    res
+      .status(403)
+      .json({ msg: "You are not authorized to view this admin-resource" });
+  }
+}
+
+module.exports = { checkJWT, checkAdminStatus };

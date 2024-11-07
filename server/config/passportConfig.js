@@ -3,6 +3,11 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const db = require("../prisma/queries");
 
+// ADVANCED JWT-PASSPORT STRATEGY & REFRESH TOKENS & REACT
+// JWT Authentication | Node JS and Express tutorials for Beginners: https://www.youtube.com/watch?v=favjC6EKFgw
+// React Login Authentication with JWT Access, Refresh Tokens, Cookies and Axios: https://www.youtube.com/watch?v=nI8PYZNFtac&t=2396s
+// Authentication in React with JWTs, Access & Refresh Tokens (Complete Tutorial): https://www.youtube.com/watch?v=AcYF18oGn6Y&t=15s
+
 // 2 PASSPORT
 // 1) create new jwt authentication strategy
 const options = {

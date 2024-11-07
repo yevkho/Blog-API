@@ -3,28 +3,27 @@ const db = require("../prisma/queries");
 // 1
 const getAllPosts = async (req, res) => {
   // TEST user serialization - remove at production
-  console.log(`serialized user object`);
-  console.log(req.user);
+  console.log(`serialized user object ${req.user}`);
   // TEST user serialization
   const allPosts = await db.getPosts();
-  res.json({ allPosts });
+  res.json(allPosts);
 };
 
 // 2
 const getPostById = async (req, res) => {
   const { postId } = req.params;
   const post = await db.getPost(postId);
-  res.json({ post });
+  res.json(post);
 };
 
 // 3
 const createPost = async (req, res, next) => {
-  console.log("reached POST route");
+  console.log("reached Post's POST route");
   const { title, content } = req.body;
   const authorId = req.user.id; // Use authenticated user's ID (security)
   try {
     const post = await db.createPost(title, content, authorId);
-    res.json({ post });
+    res.json(post);
   } catch (error) {
     next(error);
   }

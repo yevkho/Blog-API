@@ -4,12 +4,13 @@ const db = require("../prisma/queries");
 const createComment = async (req, res) => {
   console.log("reached comment POST route");
   const { postId } = req.params;
+  // const { content, authorId } = req.body;
   const { content } = req.body;
   const authorId = req.user.id; // Use authenticated user's ID (security)
 
   try {
     const comment = await db.createComment(content, authorId, postId);
-    res.json({ comment });
+    res.json(comment);
   } catch (error) {
     next(error);
   }
