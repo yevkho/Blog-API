@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const indexRouter = Router();
 
-// 1 SIGN UP NEW USER
+// 1 SIGN UP NEW USER - this can also be done with passport ('signup' local strategy see https://github.com/erynder-z/code-blog-api/blob/main/configs/passport-config.ts)
 indexRouter.post("/signup", validation.signUpForm, async (req, res, next) => {
   console.log("reached index POST route");
   // validation
@@ -19,19 +19,19 @@ indexRouter.post("/signup", validation.signUpForm, async (req, res, next) => {
   }
   // after validation
   const { username, email, password } = req.body;
-  // check if user or email exists???
+  // TBD Implement check if user or email exists!
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     const user = await db.createUser(username, email, hashedPassword);
     res.json({ success: true, user }); // R2 JSON
-    // can implement jwt generation here already and send to client (see at 25:01 https://www.youtube.com/watch?v=Ne0tLHm1juE&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=10 )
+    // TBD can implement jwt generation here already and send to client (see at 25:01 https://www.youtube.com/watch?v=Ne0tLHm1juE&list=PLYQSCk-qyTW2ewJ05f_GKHtTIzjynDgjK&index=10 )
   } catch (error) {
     next(error); // R3
   }
 });
 
-// 2 LOGIN
+// 2 LOGIN - this can also be done with passport ('login' local strategy see https://github.com/erynder-z/code-blog-api/blob/main/configs/passport-config.ts) and JWT in next mlw - https://github.com/erynder-z/code-blog-api/blob/main/controllers/auth_controller.ts
 indexRouter.post("/login", async (req, res) => {
   let { username, password } = req.body;
   // Authenticate User (check request.body user & password against User db)
@@ -59,8 +59,8 @@ indexRouter.post("/login", async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Authentication passed and sent to user browser",
-      success: true,
+      // message: "Authentication passed and sent to user browser",
+      // success: true,
       user: { userId: user.id, username: user.username, userRole: user.role },
       token: "Bearer " + token,
       // set expiration to manage authentication on front-end

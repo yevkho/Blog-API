@@ -45,6 +45,8 @@ export default function Signup() {
       const data = await response.json();
       console.log("User registered successfully:", data);
       // Optionally redirect user or display a success message
+      // navigate("/login", { replace: true });
+      // implement email confirmation?
     } catch (error) {
       console.error("Network error or unexpected error:", error.message);
       // Display general error message (e.g., set state to show in UI)

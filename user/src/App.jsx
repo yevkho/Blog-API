@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { tokenExistsAndStillValid } from "./utilities/authentication";
 
 function App() {
+  // potential to set auth data in broader context rather than parent Component, e.g., https://github.com/guskirb/blog-clientTOP/blob/main/src/context/auth.provider.tsx
   const [user, setUser] = useState(null);
   console.log(user);
   const navigate = useNavigate();
@@ -15,13 +16,14 @@ function App() {
       setUser(user);
     } else {
       // if Token is invalid or missing - clear storage and redirect
-      localStorage.removeItem("Authorization");
+      localStorage.removeItem("Authorization"); // can just be 'token' or jwt' in storage
       localStorage.removeItem("User");
       navigate("/");
     }
   }, [navigate]);
 
   const handleLogOut = () => {
+    // set a separate logout function in utils better & redirect to '/profile/login'
     setUser(null);
     localStorage.removeItem("Authorization");
     localStorage.removeItem("User");

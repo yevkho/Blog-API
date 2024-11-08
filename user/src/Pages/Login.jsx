@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
+// e.g., https://main--guskirb-blog.netlify.app/login; https://github.com/guskirb/blog-clientTOP
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const [user, setUser] = useOutletContext();
 
-  // TBD - whether/how to add from-validation on frontend - TBD
+  // TBD - whether/how to add from-validation on frontend - TBD e.g., https://github.com/guskirb/blog-clientTOP/blob/main/src/pages/auth/login.tsx
   // TBD - any additional security for interceptions of this fetch - TBD
 
   async function handleFormSubmit(e) {
@@ -17,7 +19,7 @@ export default function Login() {
     const formData = { username, password };
     const url = "http://localhost:3000/login";
 
-    // Send POST request to the backend
+    // Send POST request to the backend // can create an api folder for all api action, e.g., https://github.com/guskirb/blog-clientTOP/blob/main/src/api/auth.ts
     try {
       const response = await fetch(url, {
         method: "POST", // GET bu default

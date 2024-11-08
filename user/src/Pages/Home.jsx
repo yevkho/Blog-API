@@ -23,6 +23,9 @@ function Home() {
   useEffect(() => {
     const controller = new AbortController();
     const url = "http://localhost:3000/posts";
+    // SET ROOT URL IN ENV VARIABLE IN VITE OR NETLIFY (security - otherwise visible in production code), e.g.,
+    // const serverURL = import.meta.env.VITE_SERVER_URL;
+    // const res = await fetch(`${serverURL}/api/articles/${endpoint}`);
 
     async function fetchData() {
       try {
@@ -34,14 +37,14 @@ function Home() {
 
         const processedResponse = await response.json();
         setBlogposts(processedResponse);
+        setLoading(false);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Aborted");
         } else {
           setError(error);
+          setLoading(false);
         }
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -58,6 +61,7 @@ function Home() {
     const url = `http://localhost:3000/posts`;
 
     if (tokenExistsAndStillValid()) {
+      // or reverse and if yes then simply logout() and redirect('/profile/login') and the rest can continue as normal
       try {
         const response = await fetch(url, {
           method: "POST",
@@ -90,6 +94,7 @@ function Home() {
 
   // LOADING
   if (loading) return <p>Loading...</p>;
+  // return <Spinner />; // https://github.com/guskirb/blog-clientTOP/blob/main/src/components/spinner/spinner.tsx
 
   // ERROR
   if (error) return <p>Following Error ocurred: {error.message}</p>;

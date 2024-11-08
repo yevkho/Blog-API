@@ -8,6 +8,8 @@ require("../config/passportConfig");
 
 const postsRouter = Router();
 
+// potential admin routes: ../admin/posts
+
 // READ
 postsRouter.get("/", postsController.getAllPosts);
 // manual auth mlw
