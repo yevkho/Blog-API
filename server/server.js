@@ -22,10 +22,9 @@ app.use("/posts", postsRouter);
 app.use("/", indexRouter); // prefix all routes for CRUD with api/...
 // app.use("/user", userRouter) - potential dedicated user route to log in and sign up etc.
 
-// mlw to perhaps generate error to send to error handler if none of the routes were hit
-// app.use(function (req: Request, res: Response, next: NextFunction) {
-//   next(createError(404));
-// });
+// Use TLS - https://expressjs.com/en/advanced/best-practice-security.html#prevent-brute-force-attacks-against-authorization
+
+// Use Helmet (and others) - https://expressjs.com/en/advanced/best-practice-security.html#prevent-brute-force-attacks-against-authorization
 
 // 5) GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
