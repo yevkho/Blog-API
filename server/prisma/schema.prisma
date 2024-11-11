@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// .env
+// NODE_ENV="development" -- set to 'production' for express optimization at launch - https://expressjs.com/en/advanced/best-practice-performance.html#use-try-catch 
+// DATABASE_URL="postgresql://XXX:YYY.@localhost:5432/top_blogapi" 
+// # node: require('crypto').randomBytes(64).toString('hex')
+// ACCESS_TOKEN_SECRET="3e920a0d4f10a278b8a3ec8b48b7dbd09ad6199d76b07662adea9389962a00e587551a1321991e9e7cb8c4f2e4da4e60ade02128fdb020f4d5b73ed9d2a1aa85"
+// # TOKEN_EXPIRE_TIME=<time>
+
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())

@@ -26,6 +26,9 @@ app.use("/", indexRouter); // prefix all routes for CRUD with api/...
 
 // Use Helmet (and others) - https://expressjs.com/en/advanced/best-practice-security.html#prevent-brute-force-attacks-against-authorization
 
+// look at the design patterns link
+// research basic enterprise app deployment stuff
+
 // 5) GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   console.error(err);
